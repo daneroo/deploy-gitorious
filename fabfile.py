@@ -22,18 +22,19 @@ TEMPLATE_DICT = {
 
 # core packages
 PACKAGES = """ 
-    git-core git-svn build-essential libpcre3 libpcre3-dev apg make zlib1g \
+    git-core libcurl4-openssl-dev git-svn build-essential libpcre3 libpcre3-dev apg make zlib1g \
     zlib1g-dev ssh ruby1.8 libbluecloth-ruby libopenssl-ruby1.8 ruby1.8-dev ri \
     rdoc irb libonig-dev libyaml-dev geoip-bin libgeoip-dev libgeoip1 \
     imagemagick libmagickwand-dev memcached apache2 uuid uuid-dev openjdk-6-jre \
 """.strip()
 
 GEMS = """ 
-    rails mongrel mime-types textpow chronic \
+    mime-types textpow chronic \
     ruby-hmac daemons mime-types oniguruma textpow chronic BlueCloth \
     ruby-yadis ruby-openid geoip rspec rspec-rails RedCloth echoe \
     mysql rmagick  \
 """.strip()
+
 
 def aptitude_install(*packages):
     sudo('DEBIAN_FRONTEND=noninteractive aptitude -y install %s' % ' '.join(packages), shell=False)
@@ -71,9 +72,14 @@ def install_rubygems():
     run('cd src ; tar xvzf rubygems-1.3.5.tgz')
     run('cd src/rubygems-1.3.5 ; sudo ruby setup.rb')
     sudo('ln -sfn /usr/bin/gem1.8 /usr/bin/gem')
+    sudo('gem update --system')
+    sudo('gem sources -a http://gems.github.com')
+
 
 def install_gems():
     gem(GEMS)
+    sudo('gem install mongrel -v 1.1.5')
+    sudo('gem install rails -v 2.3.2')
     sudo('gem install rack -v=1.0.1')
 
 def install_sphinx():
@@ -161,7 +167,7 @@ def permissions():
     
 def setup_apache():
     sudo('gem install passenger')
-    aptitude_install('apache2-prefork-dev')
+    sudo('apt-get --assume-yes install apache2-prefork-dev')
     sudo('passenger-install-apache2-module -a')
     sudo('a2enmod rewrite')
     sudo('a2enmod deflate')
@@ -184,17 +190,17 @@ def start():
     sudo('/etc/init.d/apache2 restart')
 
 def deploy():
-    download_packages()
-    install_packages()
-    install_mysql()
-    install_rubygems()
-    install_gems()
-    install_sphinx()
-    install_activemq()
-    install_gitorious()
-    create_git_user()
-    configs()
-    migrate_database()
-    permissions()
+#    download_packages()
+#    install_packages()
+#    install_mysql()
+#    install_rubygems()
+#    install_gems()
+#    install_sphinx()
+#    install_activemq()
+#    install_gitorious()
+#    create_git_user()
+#    configs()
+#    migrate_database()
+#    permissions()
     setup_apache()
     start()
