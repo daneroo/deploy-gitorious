@@ -185,22 +185,24 @@ def setup_apache():
             % (TEMPLATE_DICT['SITE_NAME'], TEMPLATE_DICT['SITE_NAME']))
     sudo("a2ensite %s" % TEMPLATE_DICT['SITE_NAME'])
 
+
+
 def start():
     sudo('/etc/init.d/activemq start')
     sudo('/etc/init.d/apache2 restart')
 
 def deploy():
-#    download_packages()
-#    install_packages()
-#    install_mysql()
-#    install_rubygems()
-#    install_gems()
-#    install_sphinx()
-#    install_activemq()
-#    install_gitorious()
-#    create_git_user()
-#    configs()
-#    migrate_database()
-#    permissions()
+    download_packages()
+    install_packages()
+    install_mysql()
+    install_rubygems()
+    install_gems()
+    install_sphinx()
+    install_activemq()
+    install_gitorious()
+    create_git_user()
+    configs()
+    migrate_database()
+    permissions()
     setup_apache()
     start()
