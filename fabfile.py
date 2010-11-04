@@ -22,7 +22,7 @@ TEMPLATE_DICT = {
 
 # core packages
 PACKAGES = """ 
-    git-core libcurl4-openssl-dev git-svn build-essential libpcre3 libpcre3-dev apg make zlib1g \
+    git-core libcurl4-openssl-dev git-svn sendmail build-essential libpcre3 libpcre3-dev apg make zlib1g \
     zlib1g-dev ssh ruby1.8 libbluecloth-ruby libopenssl-ruby1.8 ruby1.8-dev ri \
     rdoc irb libonig-dev libyaml-dev geoip-bin libgeoip-dev libgeoip1 \
     imagemagick libmagickwand-dev memcached apache2 uuid uuid-dev openjdk-6-jre \
